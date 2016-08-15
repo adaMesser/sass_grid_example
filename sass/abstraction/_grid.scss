@@ -15,6 +15,13 @@
       float: left;
     }
 
+
+    /*.grid_#{$i} {
+      p:before {
+        content: $i + '/' + $col;
+      }
+    }
+    */
     .grid_#{$i}:before {
       content: $i + '/' + $col;
     }
