@@ -1,3 +1,35 @@
-.container_12 { @include grid(12); }
-.container_16 { @include grid(16); }
-.container_24 { @include grid(24); }
+@each $key, $grid_settings in $grid {
+
+  .container_#{$key} {
+    background-image: url(quote($images-path + '/#{$key}_col.gif'));
+    width: map_get($grid_settings, width);
+
+    @for $i from 1 through $key {
+      .grid_#{$i} {
+        width: columns-width($grid_settings, $i);
+        margin: 1em map_get($grid_settings, 'gutter') / 2;
+        float: left;
+
+        &:before {
+          content: "#{$i}/#{$key}";
+        }
+      }
+
+      .prefix_#{$i} {
+        @include col-prefix($grid_settings, $i);
+      }
+
+      .suffix_#{$i} {
+        @include col-suffix($grid_settings, $i);
+      }
+
+      .push_#{$i} {
+        @include grid-push($grid_settings, $i);
+      }
+
+      .pull_#{$i} {
+        @include grid-pull($grid_settings, $i);
+      }
+    }
+  }
+}
